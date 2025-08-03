@@ -4,6 +4,13 @@ from typing import List
 from parser import Tender
 
 def save_to_csv(tenders: List[Tender], filename: str):
+    """
+    Saves fetched tenders to a CSV file
+    
+    Args:
+        tenders (List[Tender]): A list of tender objects.
+        filename (str): A file to save to.
+    """
     with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['number', 'url', 'title', 'delivery_address', 'region', 'price', 'end_date']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -21,6 +28,13 @@ def save_to_csv(tenders: List[Tender], filename: str):
             })
 
 def save_to_sqlite(tenders: List[Tender], filename: str):
+    """
+    Saves fetched tenders to a Sqlite database
+    
+    Args:
+        tenders (list): A list of tender objects.
+        filename (str): A database file to save to.
+    """
     conn = sqlite3.connect(filename)
     cursor = conn.cursor()
     

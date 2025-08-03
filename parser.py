@@ -1,12 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
 from dataclasses import dataclass
-from typing import Optional
+from typing import List
 import re
 
 
 @dataclass
 class Tender:
+    """
+    Class to store main fields for a tender object
+    """
     number: str
     url: str
     title: str
@@ -16,9 +19,12 @@ class Tender:
     end_date: str
 
 class TenderParser:
+    """
+    Class to control the main parsing logic for fetching tenders.
+    """
     BASE_URL = "https://rostender.info/extsearch"
     
-    def parse(self, max_tenders=100) -> list[Tender]:
+    def parse(self, max_tenders=100) -> List[Tender]:
         tenders = []
         page = 1
         
@@ -48,7 +54,7 @@ class TenderParser:
             
         return tenders[:max_tenders]
     
-    def _parse_tender_article(self, article) -> Optional[Tender]:
+    def _parse_tender_article(self, article) -> Tender:
         # Номер тендера
         number_tag = article.select_one('.tender__number')
         number = re.search(r'№(\d+)', number_tag.text).group(1) if number_tag else "Без номера"

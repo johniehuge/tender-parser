@@ -3,6 +3,8 @@ from parser import TenderParser
 from storage import save_to_csv, save_to_sqlite
 
 def main():
+    """Main function to run the app"""
+    
     parser = argparse.ArgumentParser(description='Парсер тендеров с rostender.info')
     parser.add_argument('--max', type=int, default=100, help='Максимальное количество тендеров')
     parser.add_argument('--output', type=str, help='Файл для сохранения (CSV или SQLite)')
